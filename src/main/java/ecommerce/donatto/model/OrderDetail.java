@@ -1,16 +1,35 @@
 package ecommerce.donatto.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "detail")
 public class OrderDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private double cantidad;
     private double price;
     private double total;
+
+    @OneToOne
+    private Order order;
+
+    @ManyToOne
+    private Product product;
     
     public OrderDetail() {
     }
 
     public OrderDetail(Integer id, String name, double cantidad, double price, double total) {
+        super();
         this.id = id;
         this.name = name;
         this.cantidad = cantidad;
@@ -56,6 +75,23 @@ public class OrderDetail {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override

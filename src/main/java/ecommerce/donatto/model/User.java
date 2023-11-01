@@ -1,6 +1,19 @@
 package ecommerce.donatto.model;
 
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String username;
@@ -9,12 +22,19 @@ public class User {
     private String type;
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
     
     public User() {
     }
     
     public User(Integer id, String name, String username, String email, String phone, String type,
             String password) {
+        super();
         this.id = id;
         this.name = name;
         this.username = username;
@@ -66,9 +86,18 @@ public class User {
         this.password = password;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }  
+
     //Mostrar por consola
     @Override
     public String toString() {
         return "User [Id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", phone=" + phone + ", type=" + type + ", password=" + password + "]";
-    }      
+    }
+  
 }
