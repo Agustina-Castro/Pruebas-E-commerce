@@ -23,6 +23,7 @@ public class Product {
     private User user;
     
     public Product() {
+
     }
 
 
@@ -59,7 +60,7 @@ public class Product {
         return description;
     }
 
-    public void setDescriptio(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

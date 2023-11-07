@@ -1,6 +1,9 @@
 package ecommerce.donatto.controller;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -44,25 +47,29 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String save(Product product, @RequestParam("img") MultipartFile file) throws IOException {
+    public String save(Product product, @RequestParam("file") MultipartFile image) throws IOException {
         LOGGER.info("Este es el objeto producto {}",product);
         User u=new User(1,"","","","","","");
         product.setUser(u);
 
         //imagen
-        if (product.getId()==null) { // cuando se crea un producto
-            String nameImage = upload.saveImage(file);
-            product.setImage(nameImage);
-        } else {
-            if (file.isEmpty()) { // editamos el producto sin cambiar imag
-                Product p = new Product();
-                p=productService.get(product.getId()).get();
-                product.setImage(p.getImage());
-            }else {
-                String nameImage = upload.saveImage(file);
-                product.setImage(nameImage);
+        if (!image.isEmpty()) { // cuando se crea un producto
+            //Path directorioImagenes = Paths.get("src//main//resources//static/images");
+            //String rutaAbs = directorioImagenes.toFile().getAbsolutePath();
+            String rutaAbs = "C:\\Users\\Usuario\\Desktop\\e-commerce\\backend\\donatto\\uploads";
+
+            try {
+                byte[] bytesImg = image.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbs +"//"+image.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
+
+                product.setImage(image.getOriginalFilename());
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }
+            
+        } 
 
         productService.save(product);
         return "redirect:/products";
@@ -80,13 +87,34 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public String update(Product product) {
+    public String update(Product product, @RequestParam("file") MultipartFile file) throws IOException {
+        Product p = new Product();
+        p=productService.get(product.getId()).get();
+        
+        if (file.isEmpty()) { // editamos el producto sin cambiar imag
+            
+            product.setImage(p.getImage());
+        }else { //editar imagen
+            //Eliminar cuando no sea la imagen por defecto
+            if (!p.getImage().equals("default.jpg")) {
+                upload.deleteImage(p.getImage());
+            }
+        }
         productService.update(product);
         return "redirect:/products";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
+
+        Product p = new Product();
+        p=productService.get(id).get();
+
+        //Eliminar cuando no sea la imagen por defecto
+        if (!p.getImage().equals("default.jpg")) {
+            upload.deleteImage(p.getImage());
+        }
+
         productService.delete(id);
         return "redirect:/products";
     }
