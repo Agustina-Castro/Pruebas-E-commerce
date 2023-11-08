@@ -48,9 +48,9 @@
               <h5 class="card-title">
                 DATOS ORDEN
               </h5>
-              <h6>Nombre: </h6>
-              <h6 >Correo: </h6>
-              <h6 >Dirección</h6>
+              <h6 th:text=" 'Nombre: '+ ${user.name}"></h6>
+              <h6 th:text=" 'Correo: '+ ${user.email}"></h6>
+              <h6 th:text=" 'Contacto: '+ ${user.phone}"></h6>
 
               <h5 class="card-title">
                 PRODUCTOS
@@ -66,11 +66,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                     <td >Nombre</td>
-                     <td >Precio</td>
-                     <td>Cantidad</td>
-                     <td >Total</td>
+                    <!-- $(Accedemos a la lista) -->
+                    <tr th:each="dtorder:${cart}">
+                     <td th:text="${dtorder.name}"></td>
+                     <td th:text="${dtorder.price}"></td>
+                     <td th:text="${dtorder.cantidad}"></td>
+                     <td th:text="${dtorder.total}"></td>
 
                    </tr>
                  </tbody>
@@ -85,7 +86,7 @@
           <h2 class="card-title">Resumen Orden</h2>
 
           <ul class="list-group">
-            <li class="list-group-item"><h5> Total:</h5></li>
+            <li class="list-group-item"><h5 th:text=" 'Total: '+ ${order.total} "></h5></li>
             <a href="#" class="btn btn-dark">Generar</a>
           </ul>
         </div>

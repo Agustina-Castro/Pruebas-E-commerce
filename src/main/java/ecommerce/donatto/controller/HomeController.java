@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ecommerce.donatto.model.Order;
 import ecommerce.donatto.model.OrderDetail;
 import ecommerce.donatto.model.Product;
+import ecommerce.donatto.model.User;
+import ecommerce.donatto.service.IUserService;
 import ecommerce.donatto.service.ProductService;
 
 @Controller
@@ -28,6 +30,9 @@ public class HomeController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private IUserService userService;
 
     //Para almacenar los detallesde la orden
     List<OrderDetail> detail = new ArrayList<OrderDetail>();
@@ -123,7 +128,13 @@ public class HomeController {
     }
 
     @GetMapping("/order")
-    public String order() {
+    public String order(Model model) {
+
+        User user = userService.findById(1).get();
+
+        model.addAttribute("cart", detail);
+        model.addAttribute("order", order);
+        model.addAttribute("user", user);
 
         return "user/resumenorder";
     }
