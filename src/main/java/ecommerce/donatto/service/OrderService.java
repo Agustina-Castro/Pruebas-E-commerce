@@ -1,5 +1,8 @@
 package ecommerce.donatto.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,40 @@ public class OrderService implements IOrderService{
     @Override
     public Order save(Order order) {
         return orderRepository.save(order);
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    //Pasar el numero de las ordenes a string con el objetivo de hacer mas sencillo el incremento?
+    //Format 000001
+    public String generateOrderNumber() {
+        int number=0;
+        String numberConc="";
+
+        List<Order> orders = findAll();
+
+        List<Integer> numbers = new ArrayList<Integer>();
+
+        orders.stream().forEach(o -> numbers.add(Integer.parseInt(o.getNumber())));
+
+        if (orders.isEmpty()) {
+            number=1;
+        } else {
+            number=numbers.stream().max(Integer::compare).get();
+            number++;
+        }
+        if (number<10) {
+            numberConc="0000000"+String.valueOf(number);
+        } else if(number<100) { //se reemplaza un cero con el n de orden
+            numberConc="000000"+String.valueOf(number);
+        } else if(number<1000) {
+            numberConc="00000"+String.valueOf(number);
+        }
+
+        return numberConc;
     }
     
 }
