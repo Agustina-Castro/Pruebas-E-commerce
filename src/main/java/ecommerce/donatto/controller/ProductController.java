@@ -53,23 +53,12 @@ public class ProductController {
         product.setUser(u);
 
         //imagen
-        if (!image.isEmpty()) { // cuando se crea un producto
-            //Path directorioImagenes = Paths.get("src//main//resources//static/images");
-            //String rutaAbs = directorioImagenes.toFile().getAbsolutePath();
-            String rutaAbs = "C:\\Users\\Usuario\\Desktop\\e-commerce\\backend\\donatto\\uploads";
-
-            try {
-                byte[] bytesImg = image.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbs +"//"+image.getOriginalFilename());
-                Files.write(rutaCompleta, bytesImg);
-
-                product.setImage(image.getOriginalFilename());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            
-        } 
+		if (product.getId()==null) { // cuando se crea un producto
+			String nombreImagen= upload.saveImage(image);
+			product.setImage(nombreImagen);
+		}else {
+			
+		}
 
         productService.save(product);
         return "redirect:/products";
@@ -87,19 +76,21 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public String update(Product product, @RequestParam("file") MultipartFile file) throws IOException {
+    public String update(Product product, @RequestParam("file") MultipartFile image) throws IOException {
         Product p = new Product();
         p=productService.get(product.getId()).get();
         
-        if (file.isEmpty()) { // editamos el producto sin cambiar imag
-            
+        if (image.isEmpty()) { // editamos el producto sin cambiar imag
             product.setImage(p.getImage());
         }else { //editar imagen
             //Eliminar cuando no sea la imagen por defecto
             if (!p.getImage().equals("default.jpg")) {
                 upload.deleteImage(p.getImage());
             }
+            String nombreImagen= upload.saveImage(image);
+			product.setImage(nombreImagen);
         }
+        product.setUser(p.getUser());
         productService.update(product);
         return "redirect:/products";
     }

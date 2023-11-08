@@ -10,7 +10,7 @@ public class ResourceWebConfiguration implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		
-		registry.addResourceHandler("/uploads/**").addResourceLocations("file:C:\\Users\\Usuario\\Desktop\\e-commerce\\backend\\donatto\\uploads");
+		registry.addResourceHandler("/uploads/**").addResourceLocations("file:C:\\Users\\Usuario\\Desktop\\e-commerce\\backend\\donatto\\uploads/");
 	}
 
 }
