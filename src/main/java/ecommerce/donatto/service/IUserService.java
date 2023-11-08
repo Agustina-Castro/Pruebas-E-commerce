@@ -6,4 +6,5 @@ import ecommerce.donatto.model.User;
 
 public interface IUserService {
     Optional<User> findById(Integer id);
+    User save (User user);
 }
