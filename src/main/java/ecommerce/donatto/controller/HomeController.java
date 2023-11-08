@@ -1,5 +1,7 @@
 package ecommerce.donatto.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import ecommerce.donatto.model.Order;
+import ecommerce.donatto.model.OrderDetail;
 import ecommerce.donatto.model.Product;
 import ecommerce.donatto.service.ProductService;
 
@@ -23,7 +28,13 @@ public class HomeController {
 
     @Autowired
     private ProductService productService;
+
+    //Para almacenar los detallesde la orden
+    List<OrderDetail> detail = new ArrayList<OrderDetail>();
     
+    //Datos de la orden
+    Order order = new Order();
+
     @GetMapping("")
     public String home(Model model) {
 
@@ -44,8 +55,31 @@ public class HomeController {
         return "user/producthome";
     }
 
-    @PostMapping("/cart")
-    public String addCart() {
+    @PostMapping("/cart") 
+    public String addCart(@RequestParam Integer id, @RequestParam Integer cantidad, Model model) {//entre (argumentos) 
+        OrderDetail orderDetail = new OrderDetail();
+        Product product = new Product();
+        double sumaTotal = 0;
+
+        Optional<Product> optionalProduct = productService.get(id);
+        log.info("Producto añadido {}", optionalProduct.get());
+        log.info("cantidad: {}", cantidad);
+        product=optionalProduct.get();
+
+        orderDetail.setCantidad(cantidad);
+        orderDetail.setPrice(product.getPrice());
+        orderDetail.setName(product.getName());
+        orderDetail.setTotal(product.getPrice()*cantidad);
+        orderDetail.setProduct(product);
+
+        detail.add(orderDetail);
+
+        sumaTotal=detail.stream().mapToDouble(dt->dt.getTotal()).sum();
+
+        order.setTotal(sumaTotal);
+        model.addAttribute("cart", detail);
+        model.addAttribute("order", order);
+
         return "user/cart";
     }
 }

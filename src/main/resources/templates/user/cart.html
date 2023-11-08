@@ -3,19 +3,19 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-  <title>Spring eCommerce</title>
+<title>Spring eCommerce</title>
 
 
-  <!-- Bootstrap core CSS -->
-  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link th:href="@{/css/heroic-features.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link th:href="@{/css/heroic-features.css}" rel="stylesheet">
 
 </head>
 
@@ -26,25 +26,25 @@
   </div>
 
 
-    <!-- Page Content -->
-    <div class="container">
+  <!-- Page Content -->
+  <div class="container">
 
 
-      <!-- Page Heading/Breadcrumbs -->
-      <h1 class="mt-4 mb-3">
-        Spring eCommerce <small>Carrito</small>
-      </h1>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">
+      Spring eCommerce <small>Carrito</small>
+    </h1>
 
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-        <li class="breadcrumb-item active">Carrito</li>
-      </ol>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+      <li class="breadcrumb-item active">Carrito</li>
+    </ol>
 
-      <!-- Blog Post -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row">
-           <div class="col-lg-9">
+    <!-- Blog Post -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-9">
             <table class="table">
               <thead>
                 <tr>
@@ -56,11 +56,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td >Nombre</td>
-                  <td >Precio</td>
-                  <td>Cantidad</td>
-                  <td >Total</td>
+                <tr th:each="dorder:${cart}">
+                  <td th:text="${dorder.name}"></td>
+                  <td th:text="${dorder.price}"></td>
+                  <td th:text="${dorder.cantidad}"></td>
+                  <td th:text="${dorder.total}"></td>
                   <td><a href="#" class="btn btn-danger">Quitar</a></td>
                 </tr>
               </tbody>
@@ -71,7 +71,9 @@
             <h2 class="card-title">SUBTOTAL</h2>
 
             <ul class="list-group">
-              <li class="list-group-item"><h5>Total: $ 10</h5></li>
+              <li class="list-group-item">
+                <h5 th:text="${order.total}"></h5>
+              </li>
               <a href="resumenorden.html" class="btn btn-dark">Ver Orden</a>
             </ul>
           </div>
@@ -82,13 +84,12 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <div th:include="user/template_user.html::footer">
-    </div>
-  
+    <div th:include="user/template_user.html::footer"></div>
+
     <!-- Bootstrap core JavaScript -->
     <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  
-  </body>
 
-  </html>
+</body>
+
+</html>
