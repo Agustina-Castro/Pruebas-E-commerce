@@ -3,19 +3,19 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>Spring eCommerce</title>
+<title>Spring eCommerce</title>
 
 
-    <!-- Bootstrap core CSS -->
-    <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link th:href="@{css/heroic-features.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link th:href="@{css/heroic-features.css}" rel="stylesheet">
 
 </head>
 
@@ -27,9 +27,9 @@
             <div class="container">
                 <a class="navbar-brand" th:href="@{/}">Spring eCommerce</a>
 
-                <form class="form-inline my-2 my-lg-0" method="post" action="#">
+                <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/search}">
                     <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search"
-                        name="nombre" autocomplete="off">
+                        name="name" autocomplete="off">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
 

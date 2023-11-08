@@ -1,9 +1,6 @@
 package ecommerce.donatto.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.slf4j.Logger;
