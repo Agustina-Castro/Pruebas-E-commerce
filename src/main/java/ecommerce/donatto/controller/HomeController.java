@@ -1,6 +1,7 @@
 package ecommerce.donatto.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,8 @@ import ecommerce.donatto.model.Order;
 import ecommerce.donatto.model.OrderDetail;
 import ecommerce.donatto.model.Product;
 import ecommerce.donatto.model.User;
+import ecommerce.donatto.service.IOrderDetailService;
+import ecommerce.donatto.service.IOrderService;
 import ecommerce.donatto.service.IUserService;
 import ecommerce.donatto.service.ProductService;
 
@@ -33,6 +36,12 @@ public class HomeController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IOrderService orderService;
+
+    @Autowired
+    private IOrderDetailService orderDetailService;
 
     //Para almacenar los detallesde la orden
     List<OrderDetail> detail = new ArrayList<OrderDetail>();
@@ -137,6 +146,32 @@ public class HomeController {
         model.addAttribute("user", user);
 
         return "user/resumenorder";
+    }
+
+    //guardar orden
+    @GetMapping("/saveOrder")
+    public String saveOrder() {
+        Date fechaCreacion = new Date();
+        order.setFechaCreacion(fechaCreacion);
+        order.setNumber(orderService.generateOrderNumber());
+
+        //usuario
+        User user = userService.findById(1).get();
+        
+        order.setUser(user);
+        orderService.save(order);
+
+        //guardar detalles
+        for (OrderDetail dt:detail) {
+            dt.setOrder(order);
+            orderDetailService.save(dt);
+        }
+
+        //Limpiar lista y orden
+        order = new Order();
+        detail.clear();
+
+        return "redirect:/";
     }
     
 }

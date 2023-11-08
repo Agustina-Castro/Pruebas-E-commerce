@@ -7,4 +7,5 @@ import ecommerce.donatto.model.Order;
 public interface IOrderService {
     List<Order> findAll();
     Order save (Order order);
+    String generateOrderNumber();
 }

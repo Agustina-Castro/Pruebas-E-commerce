@@ -10,7 +10,7 @@ import ecommerce.donatto.model.Order;
 import ecommerce.donatto.repository.IOrderRepository;
 
 @Service
-public class OrderService implements IOrderService{
+public class OrderServiceImpl implements IOrderService{
 
     @Autowired //Para que spring sepa que tiene que inyectar el objeto a esta clase de ser
     private IOrderRepository orderRepository;
