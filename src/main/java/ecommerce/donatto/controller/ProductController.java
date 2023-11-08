@@ -17,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ecommerce.donatto.model.Product;
 import ecommerce.donatto.model.User;
+import ecommerce.donatto.service.IUserService;
 import ecommerce.donatto.service.ProductService;
 import ecommerce.donatto.service.UploadFileService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/products")
@@ -28,6 +30,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private IUserService userService;
 
     @Autowired
     private UploadFileService upload;
@@ -44,9 +49,11 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String save(Product product, @RequestParam("file") MultipartFile image) throws IOException {
+    public String save(Product product, @RequestParam("file") MultipartFile image, HttpSession session) throws IOException {
         LOGGER.info("Este es el objeto producto {}",product);
-        User u=new User(1,"","","","","","");
+        
+        
+        User u=userService.findById(Integer.parseInt(session.getAttribute("iduser").toString())).get();
         product.setUser(u);
 
         //imagen

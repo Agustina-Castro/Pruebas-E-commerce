@@ -25,6 +25,7 @@ import ecommerce.donatto.service.IOrderDetailService;
 import ecommerce.donatto.service.IOrderService;
 import ecommerce.donatto.service.IUserService;
 import ecommerce.donatto.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
@@ -51,8 +52,11 @@ public class HomeController {
     Order order = new Order();
 
     @GetMapping("")
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
 
+        //
+        log.info("sesion del usuario: {}", session.getAttribute("iduser")); //Llamamos el metodo de user control para mantener la sesion
+        
         model.addAttribute("products", productService.findAll());
 
         return "user/home";
@@ -138,9 +142,10 @@ public class HomeController {
     }
 
     @GetMapping("/order")
-    public String order(Model model) {
+    public String order(Model model, HttpSession session) {
 
-        User user = userService.findById(1).get();
+        //Obtenemos el usuario guardado
+        User user = userService.findById(Integer.parseInt(session.getAttribute("iduser").toString())).get();
 
         model.addAttribute("cart", detail);
         model.addAttribute("order", order);
@@ -151,13 +156,13 @@ public class HomeController {
 
     //guardar orden
     @GetMapping("/saveOrder")
-    public String saveOrder() {
+    public String saveOrder(HttpSession session) {
         Date fechaCreacion = new Date();
         order.setFechaCreacion(fechaCreacion);
         order.setNumber(orderService.generateOrderNumber());
 
         //usuario
-        User user = userService.findById(1).get();
+        User user = userService.findById(Integer.parseInt(session.getAttribute("iduser").toString())).get();
         
         order.setUser(user);
         orderService.save(order);
