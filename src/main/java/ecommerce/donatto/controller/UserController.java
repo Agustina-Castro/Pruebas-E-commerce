@@ -99,4 +99,10 @@ public class UserController {
         return "user/detallecompra";
     }
 
+    @GetMapping("/cerrar")
+    public String cerrarSesion(HttpSession session) {
+        session.removeAttribute("iduser");
+        return "redirect:/";
+    }
+
 }
