@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ecommerce.donatto.model.Product;
+import ecommerce.donatto.service.IOrderService;
 import ecommerce.donatto.service.IUserService;
 import ecommerce.donatto.service.ProductService;
 
@@ -20,6 +21,9 @@ public class AdminController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IOrderService orderService;
 
     @GetMapping("")
     public String home(Model model){
@@ -34,6 +38,12 @@ public class AdminController {
     public String users(Model model) {
         model.addAttribute("users", userService.findAll());
         return "administrador/usuarios";
+    }
+
+    @GetMapping("orders")
+    public String orders(Model model) {
+        model.addAttribute("ordenes", orderService.findAll());
+        return "administrador/orders";
     }
 
 }
