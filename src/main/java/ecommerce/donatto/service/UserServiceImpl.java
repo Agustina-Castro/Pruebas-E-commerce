@@ -1,5 +1,6 @@
 package ecommerce.donatto.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class UserServiceImpl implements IUserService{
     public Optional<User> findByUsername(String username) {
         //Llamamos al metodo del repository
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
     
 }
