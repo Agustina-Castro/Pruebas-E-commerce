@@ -3,12 +3,12 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-  <title>Spring eCommerce</title>
+<title>Spring eCommerce</title>
 
 
 <!-- Bootstrap core CSS -->
@@ -21,11 +21,12 @@
 
 <body>
 
-    <!-- Navigation | if: si la session es null se mostrara determinado header-->
-    <div th:include="user/template_user.html::header" th:if="${sesion==null}"></div>
+  <!-- Navigation | if: si la session es null se mostrara determinado header-->
+  <div th:include="user/template_user.html::header" th:if="${sesion==null}">
+  </div>
 
-    <div th:include="user/template_user.html::header-user" th:unless="${sesion==null}"></div>
-  
+  <div th:include="user/template_user.html::header-user" th:unless="${sesion==null}">
+  </div>
 
     <!-- Page Content -->
     <div class="container">
@@ -33,12 +34,13 @@
 
       <!-- Page Heading/Breadcrumbs -->
       <h1 class="mt-4 mb-3">
-        Spring eCommerce <small>Compras</small>
+        Spring eCommerce <small>Detalles</small>
       </h1>
 
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-        <li class="breadcrumb-item active">Compras</li>
+        <li class="breadcrumb-item"><a th:href="@{/user/compras}">Compras</a></li>
+        <li class="breadcrumb-item active">Detalle de Compra</li>
       </ol>
 
       <!-- Blog Post -->
@@ -49,18 +51,18 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">No. de Orden</th>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Valor</th>
-                  <th scope="col">Acción</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Producto</th>                  
+                  <th scope="col">Precio</th>
+                  <th scope="col">Total</th>                  
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="order:${ordenes}">
-                  <td th:text="${order.number}"></td>
-                  <td th:text="${order.fechaCreacion}"></td>
-                  <td th:text="${order.total}"></td>
-                  <td><a th:href="@{/user/detalle/{id} (id=${order.id}) }" class="btn btn-success">Ver Detalle</a></td>
+                <tr th:each="detalle:${detalles}">
+                  <td th:text="${detalle.cantidad}"></td>
+                  <td th:text="${detalle.name}"></td>
+                  <td th:text="${detalle.price}"></td>
+                  <td th:text="${detalle.total}"></td>
                 </tr>
               </tbody>
             </table>
@@ -81,3 +83,4 @@
 </body>
 
 </html>
+
