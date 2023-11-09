@@ -21,10 +21,10 @@
 
 <body>
 
-  <!-- Navigation -->
-  <div th:include="user/template_user.html::header">
-  </div>
+  <!-- Navigation | if: si la session es null se mostrara determinado header-->
+  <div th:include="user/template_user.html::header" th:if="${sesion==null}"></div>
 
+  <div th:include="user/template_user.html::header-user" th:unless="${sesion=null}"></div>
 
   <!-- Page Content -->
   <div class="container">
