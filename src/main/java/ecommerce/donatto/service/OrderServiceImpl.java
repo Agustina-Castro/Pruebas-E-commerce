@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ecommerce.donatto.model.Order;
+import ecommerce.donatto.model.User;
 import ecommerce.donatto.repository.IOrderRepository;
 
 @Service
@@ -52,6 +53,11 @@ public class OrderServiceImpl implements IOrderService{
         }
 
         return numberConc;
+    }
+
+    @Override
+    public List<Order> findByUser(User user) {
+        return orderRepository.findByUser(user);
     }
     
 }

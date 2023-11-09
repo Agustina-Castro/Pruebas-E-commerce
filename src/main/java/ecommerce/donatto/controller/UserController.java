@@ -1,5 +1,6 @@
 package ecommerce.donatto.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ecommerce.donatto.model.Order;
 import ecommerce.donatto.model.User;
+import ecommerce.donatto.service.IOrderService;
 import ecommerce.donatto.service.IUserService;
 import jakarta.servlet.http.HttpSession;
 
@@ -23,6 +26,9 @@ public class UserController {
     
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IOrderService orderService;
 
     //usuario-registro
     @GetMapping("/register")
@@ -71,6 +77,12 @@ public class UserController {
     public String obtenerCompras(Model model, HttpSession session) {
         //implementamos la vista para que nos de error en la variacin
         model.addAttribute("sesion", session.getAttribute("iduser"));
+        
+        User user = userService.findById( Integer.parseInt(session.getAttribute("iduser").toString())).get();
+        List<Order> ordenes=orderService.findByUser(user);
+
+        model.addAttribute("ordenes", ordenes);
+        
         return "user/compras";
     }
 
