@@ -5,6 +5,32 @@
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
 }
+@media screen and (max-width: 500px) {
+    .logo img {
+        max-height: 10px;
+    }
+
+    .search {
+        margin: 0;
+    }
+
+    .search input {
+        width: 70%;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .navegacion {
+        display: none;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
 .footer-elemento {
     display: inline-block;
     margin: 10px;
