@@ -1,50 +1,73 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
 }
-body {
-    font-family: sans-serif;
-    background-color: #E0E6F6
+@media screen and (max-width: 500px) {
+    .logo img {
+        max-height: 10px;
+    }
+
+    .search {
+        margin: 0;
+    }
+
+    .search input {
+        width: 70%;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .navegacion {
+        display: none;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
-/* Barra de Navegación */
+body {
+    font-family: sans-serif;
+    background-color: #E0E6F6;
+}
+
 nav {
-    background-color: #6a7db8; /* Color de fondo del menú */
-    color: #fff; /* Color de texto del menú */
+    background-color: #6a7db8;
+    color: #fff;
     display: flex;
     width: 100%;
-    justify-content: flex-start; /* Alineación al inicio */
+    justify-content: space-between; 
     align-items: center;
     padding: 10px;
     text-align: left;
 }
 
-/* Logo */
+
 .logo img {
-    max-height: 70px; /* Ajusta la altura máxima del logotipo */
-    margin-left: 100px; /* Espacio a la izquierda del logotipo */
+    max-height: 70px;
+    margin-left: 20px; 
 }
 
-/* Búsqueda */ 
 .search {
-    flex: 1; /* La sección de búsqueda se expandirá para ocupar el espacio disponible */
-    margin: 0 50px;
+    flex: 1;
+    margin: 0 20px; 
     text-align: left;
 }
 
 .search input {
-    width: 28%;
+    width: 20%; 
     padding: 5px;
     border: none;
     border-radius: 5px;
 }
 
 .search button {
-    background-color: #E4E3E9; /* Color del botón de búsqueda */
+    background-color: #E4E3E9;
     color: #000000;
     border: none;
     border-radius: 15px;
@@ -57,7 +80,6 @@ nav {
     list-style: none;
     display: flex;
     padding: 0;
-    margin-right: 20px;
 }
 
 .menu ul li {
@@ -66,43 +88,41 @@ nav {
 }
 
 .menu ul li:last-child {
-    margin-right: 60px;
+    margin-right: 20px;
 }
 
 .menu ul a {
     color: #ffffff;
     text-decoration: none;
-    margin-left: 20px;
 }
 
 .menu img {
-    height: 30px; /* Ajusta la altura máxima de la imagen del mercado */
-    margin-top: -10px; /* Reduce el espacio debajo de la imagen */
+    height: 30px;
+    margin-top: -10px;
 }
 
 .market {
-    align-items: flex-start; 
+    align-items: flex-start;
 }
 
-/* segunda barra de navegacion*/
+/* Segunda barra de navegación */
 
-.navegacion{
+.navegacion {
     width: 100%;
-    height: 34px!important;
+    height: 34px !important;
     margin: 0px auto;
     background: #8089C0;
 }
 
-.navegacion ul{
+.navegacion ul {
     list-style: none;
 }
 
-.menu2 > li{
-    /*position: relative;*/
+.menu2 > li {
     display: inline-block;
 }
 
-.menu2 > li > a{
+.menu2 > li > a {
     display: block;
     padding: 8px 20px;
     color: #fff;
@@ -110,15 +130,14 @@ nav {
     text-decoration: none;
 }
 
-.menu2 li a:hover{
+.menu2 li a:hover {
     background-color: #E4E3E9;
     color: #000000;
     transition: all .3s;
-
 }
 
-/*submenu*/
-.submenu{
+/* Submenu */
+.submenu {
     position: absolute;
     background: #0000008e;
     width: 15%;
@@ -128,16 +147,16 @@ nav {
     z-index: 1;
 }
 
-.submenu li a{
+.submenu li a {
     display: block;
     padding: 15px;
     color: #fff;
     font-family: 'Open Sans', sans-serif;
     text-decoration: none;
-    
 }
-.menu2 li:hover .submenu{
+
+.menu2 li:hover .submenu {
     visibility: visible;
     opacity: 1;
-    
 }
+
